@@ -129,7 +129,8 @@ setMethod("summary.ORdensity",
               DFgenes[[k]] <- list( "numberOfGenes"=length(clusters[[k]][,'id']), 
                                     "CharacteristicsCluster"=CharClus[[k]], "genes"=sort(clusters[[k]][,'id']))
             }
-            cat("The ORdensity method has found that the optimal clustering of the data consists of",object@bestK,"clusters\n")
+            cat("The ORdensity method has found that the optimal clustering of the data consists of",object@bestK,
+		"clusters, computed from a maximum of", object@K,"when the ORdensity object was created\n")
             if (!is.null(numclusters))
             {
               cat("The user has chosen a clustering of",numclusters,"clusters\n")
