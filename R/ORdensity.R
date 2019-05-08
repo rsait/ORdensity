@@ -606,12 +606,12 @@ setMethod("findbestK",
             # len(object@char) could be less than 10
             for (k in 2:object@K)
             {
-              shit <- object@char
               d <- distances::distances(scale(object@char))
               aux <- cluster::pam(d[1:(dim(d)[2]), 1:(dim(d)[2])], k, diss = TRUE)
               s[k] <- mean(cluster::silhouette(aux)[, "sil_width"])
             }
             best_k <- which(s == max(s, na.rm = TRUE))
+	    object@bestK <- best_k
             return (best_k)
           }
 )
