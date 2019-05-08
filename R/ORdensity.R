@@ -602,9 +602,9 @@ setGeneric("findbestK", function(object, ...) standardGeneric("findbestK"))
 setMethod("findbestK",
           signature = "ORdensity",
           definition = function(object){
-            s <- rep(NA, 10)
+            s <- rep(NA, object@K)
             # len(object@char) could be less than 10
-            for (k in 2:10)
+            for (k in 2:object@K)
             {
               shit <- object@char
               d <- distances::distances(scale(object@char))
