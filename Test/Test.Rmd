@@ -1,0 +1,83 @@
+---
+title: "ORdensity test."
+author: "José María Martínez Otzeta"
+date: "`r format(Sys.time(), '%d de %B, %Y')`"
+output:
+  html_document:
+      toc: true
+      toc_depth: 3
+      toc_float: true
+      df_print: kable
+  pdf_document: default
+always_allow_html: yes
+toc: yes
+---
+
+```{r setup, include=FALSE}
+# knitr options
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r libraries, include=FALSE}
+# Install packages
+# Load packages
+# ...
+
+library(knitr)
+```
+
+
+```{r input, include=FALSE}
+# Input / Output variables
+# Tuning parameters
+# ...
+data <- "/home/bee/Github/ItziarParallelizing/WeTransfer/Datos_n20000.dat"
+
+```
+
+***
+
+
+## Test of ORdensity
+
+### Removing and installing 
+```{r}
+remove.packages('ORdensity')
+install.packages("/home/bee/Github/ORdensity", repos = NULL, type = "source")
+library('ORdensity')
+```
+
+### Importing the file
+```{r}
+a <- read.csv(data, sep=" ", header=TRUE)
+x <- a[, 2:31]
+y <- a[, 32:61]
+positive <- as.matrix(x)
+negative <- as.matrix(y)
+```
+
+### Test with 1.000 (not parallel)
+```{r}
+system.time(myORdensity <- new("ORdensity", Exp_cond_1 = positive, Exp_cond_2 = negative, parallel = FALSE, verbose = FALSE))
+```
+
+### Test with 1.000 (parallel)
+```{r}
+system.time(myORdensity <- new("ORdensity", Exp_cond_1 = positive, Exp_cond_2 = negative, parallel = TRUE, verbose = FALSE))
+```
+### Summary
+```{r}
+summary(myORdensity)
+```
+
+### Median of medians
+
+```{r}
+median_of_medians_of_distances <- function(v)
+{
+   d <- distances(v)
+   l <- apply(d, 1, med)
+   return (med(l))
+}
+```
+

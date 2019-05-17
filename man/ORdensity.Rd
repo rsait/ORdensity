@@ -16,13 +16,13 @@ given miroarray data measured in two experimental conditions.
 \section{Slots}{
 
 \describe{
-\item{\code{positive}}{Matrix including microarray data measured under experimental condition 1.}
+\item{\code{Exp_cond_1}}{Matrix including microarray data measured under experimental condition 1.}
 
-\item{\code{negative}}{matrix including microarray data measured under experimental condition 2.}
+\item{\code{Exp_cond_2}}{matrix including microarray data measured under experimental condition 2.}
 
 \item{\code{labels}}{Vector of characters identifying the genes, by default
-rownames(positive) is inherited. If NULL,
-the genes are named ‘Gene1’, ..., ‘Genen' according to the order given in \code{positive}.}
+rownames(Exp_cond_1) is inherited. If NULL,
+the genes are named ‘Gene1’, ..., ‘Genen' according to the order given in \code{Exp_cond_1}.}
 
 \item{\code{B}}{Numeric value indicating the number of bootstrap iteration. By default, \code{B}=100.}
 
@@ -38,7 +38,9 @@ the genes are named ‘Gene1’, ..., ‘Genen' according to the order given in 
 \item{\code{weights}}{Vector of numerics. It controls the weights given to the quantiles set in \code{probs}. 
 By default  \code{weights = c(1/4, 1/2, 1/4)}.}
 
-\item{\code{K}}{Numeric value to set the number of nearest neighbours. By default \code{K=10}.}
+\item{\code{numneighbours}}{Numeric value to set the number of nearest neighbours. By default \code{numneighbours=10}.}
+
+\item{\code{numclustoseek}}{Numeric value to set the number of maximum clusters to consider. By default \code{numclustoseek=10}.}
 
 \item{\code{out}}{List containing the potential DE genes and their characteristics.
 ...}

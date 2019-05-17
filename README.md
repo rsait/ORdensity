@@ -20,7 +20,7 @@ To install the package from this repository, just run the following code
 
 ```
 library('devtools')
-install_github('rsait/ORdensity')
+install_github('jmartinezot/ORdensity')
 ```
 
 This package requires the ```cluster``` library to be installed; otherwise it will automatically install and load it. Likewise, the ```foreach``` library is used for parallelization.

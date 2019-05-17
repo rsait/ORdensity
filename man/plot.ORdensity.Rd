@@ -4,7 +4,7 @@
 \alias{plot.ORdensity}
 \title{plot.ORdensity}
 \usage{
-plot.ORdensity(object, k = object@bestK, ...)
+plot.ORdensity(object, k = object@bestKclustering, ...)
 }
 \arguments{
 \item{object}{An object of \code{\link{ORdensity}} class}
