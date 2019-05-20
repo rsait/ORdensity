@@ -723,3 +723,19 @@ A bootstrap replication takes 0.318 seconds, and you have requested 10000 bootst
 Warning message:
 In eval(formal.args[[as.character(substitute(arg))]], envir = sys.frame(sysP)) :
   restarting interrupted promise evaluation
+
+
+library(testthat)
+library(ORdensity)
+setwd("/home/bee/Github/ORdensity/tests")
+x <- simexpr[, 3:32]
+y <- simexpr[, 33:62]
+EXC.1 <- as.matrix(x)
+EXC.2 <- as.matrix(y)
+test_results <- test_dir(".", reporter="summary")
+test_results
+
+
+
+
+
