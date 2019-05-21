@@ -20,7 +20,7 @@ To install the package from this repository, just run the following code
 
 ```
 library('devtools')
-install_github('jmartinezot/ORdensity')
+install_github('rsait/ORdensity')
 ```
 
 This package requires the ```cluster``` library to be installed; otherwise it will automatically install and load it. Likewise, the ```foreach``` library is used for parallelization.
@@ -35,7 +35,7 @@ library('ORdensity')
 
 There is a example dataframe called ```simexpr``` shipped with the package. This data is the result of a simulation of 100 differentially expressed genes in a pool of 1000 genes. It contains 1000 observations of 62 variables. Each row correspond to a gene and contains 62 values: DEgen, gap and the values for the gene expression in 30 positive cases and in 30 negative cases. The DEgen field value is 1 for differentially expressed genes and 0 for those which are not.
 
-First, let us extract the samples from each experimental condition from the ```example``` database.
+First, let us extract the samples from each experimental condition from the ```simexpr``` database.
 
 ```
 x <- simexpr[, 3:32]

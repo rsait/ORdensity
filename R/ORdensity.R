@@ -551,6 +551,10 @@ setValidity("ORdensity", function(object) {
     valid <- FALSE
     msg <- c(msg, "Exp_cond_1 and Exp_cond_2 number of rows do not match")
   }
+  if (length(probs) != length(weights)) {
+    valid <- FALSE
+    msg <- c(msg, "probs and weights lengths do not match")
+  }
   if (valid) TRUE else msg
 }
 )
