@@ -34,7 +34,7 @@ install again doing
 sudo R
 
 library('devtools')
-install_github('jmartinezot/ORdensity')
+install_github('rsait/ORdensity')
 library('ORdensity')
 
 installing from local source
