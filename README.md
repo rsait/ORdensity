@@ -4,7 +4,7 @@ In this repository is located the R package ORdensity that implements the statis
 
 ## Introduction
 
-An important issue in microarray data is to select, from thousands of genes, a small number of informative differentially expressed (DE) genes that may be key elements for a disease. If each gene is analyzed individually, there is a big number of hypotheses to test and a multiple comparison correction method must be used. Consequently, the resulting cut-off value may be too small. Moreover, an important issue is the selection’s replicability of the DE genes. The package ORdensity is designed to obtain a reproducible selection of DE genes by the method presented in \[1\], which is not a gene-by-gene approach. The core function 'findDEgenes' provides three measures related to the concepts of outlier and density of false positives in a neighbourhood, which allow identify the DE genes with high classification accuracy. The first measure is an index called OR and previously introduced in \[2, 3\]; the other two measures called FP and dFP were introduced in \[1\]. Additional functions provided in this package like 'preclusteredData' and 'plotFPvsOR' facilitate exploring and understanding the results.  As, working with large datasets, long execution times and great computational efforts are required, parallelization strategies were used to perform the analysis in a short time.
+An important issue in microarray data is to select, from thousands of genes, a small number of informative differentially expressed (DE) genes that may be key elements for a disease. If each gene is analyzed individually, there is a big number of hypotheses to test and a multiple comparison correction method must be used. Consequently, the resulting cut-off value may be too small. Moreover, an important issue is the selection’s replicability of the DE genes. The package ORdensity is designed to obtain a reproducible selection of DE genes by the method presented in \[1\], which is not a gene-by-gene approach. The core function 'findDEgenes' provides three measures related to the concepts of outlier and density of false positives in a neighbourhood, which allow identify the DE genes with high classification accuracy. The first measure is an index called OR and previously introduced in \[2, 3\]; the other two measures called FP and dFP were introduced in \[1\]. Additional functions provided in this package like 'preclusteredData' and 'plot' facilitate exploring and understanding the results.  As, working with large datasets, long execution times and great computational efforts are required, parallelization strategies were used to perform the analysis in a short time.
 
 ## References
 
@@ -23,7 +23,7 @@ library('devtools')
 install_github('rsait/ORdensity')
 ```
 
-This package requires the ```cluster``` library to be installed; otherwise it will automatically install and load it. Likewise, the ```foreach``` library is used for parallelization.
+This package requires the `cluster` library to be installed; otherwise it will automatically install and load it. Likewise, the `foreach` library is used for parallelization.
 
 To start working with the package, just load it in the R enviroment with the following command
 
@@ -33,9 +33,9 @@ library('ORdensity')
 
 ## Example
 
-There is a example dataframe called ```simexpr``` shipped with the package. This data is the result of a simulation of 100 differentially expressed genes in a pool of 1000 genes. It contains 1000 observations of 62 variables. Each row correspond to a gene and contains 62 values: DEgen, gap and the values for the gene expression in 30 positive cases and in 30 negative cases. The DEgen field value is 1 for differentially expressed genes and 0 for those which are not.
+There is a example dataframe called `simexpr` shipped with the package. This data is the result of a simulation of 100 differentially expressed genes in a pool of 1000 genes. It contains 1000 observations of 62 variables. Each row correspond to a gene and contains 62 values: DEgen, gap and the values for the gene expression in 30 positive cases and in 30 negative cases. The DEgen field value is 1 for differentially expressed genes and 0 for those which are not.
 
-First, let us extract the samples from each experimental condition from the ```simexpr``` database.
+First, let us extract the samples from each experimental condition from the `simexpr` database.
 
 ```
 x <- simexpr[, 3:32]
