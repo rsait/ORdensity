@@ -235,8 +235,16 @@ setMethod("plot.ORdensity",
     d <- distances::distances(scale(object@char))
     clustering <- cluster::pam(d[1:(dim(d)[2]), 1:(dim(d)[2])], k, diss = TRUE)$clustering
     legend_text <- sprintf("cluster %s",seq(1:k))
+    
+    prop <- object@out$prop
+    neighbours <- prop[3]
+    p0 <- prop[2]
+    preclustered_data <- as.data.frame(object@out$summary)
+    selec <- preclustered_data$FP < p0 * neighbours
+    
     plot(object@FP, object@OR, type="n",main="Potential genes",xlab="FP",ylab="OR")
-    points(object@FP, object@OR, cex=1/(0.5+object@dFP),  col = clustering)
+    points(object@FP[selec], object@OR[selec], pch=2, cex=1/(0.5+object@dFP),  col = clustering[selec])
+    points(object@FP[!selec], object@OR[!selec], cex=1/(0.5+object@dFP[!selec]),  col = clustering[!selec])
     legend("topright", legend=legend_text, pch=16, col=unique(clustering))
     }
   )

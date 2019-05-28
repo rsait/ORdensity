@@ -735,7 +735,13 @@ EXC.2 <- as.matrix(y)
 test_results <- test_dir(".", reporter="summary")
 test_results
 
-
-
+load("ORdensity_parallel.Rdata")
+load("summary_parallel.Rdata")
+load("findDEgenes_parallel.Rdata")
+load("preclusteredData_parallel.Rdata")
+load("ORdensity_sequential.Rdata")
+load("summary_sequential.Rdata")
+load("findDEgenes_sequential.Rdata")
+load("preclusteredData_sequential.Rdata")
 
 
