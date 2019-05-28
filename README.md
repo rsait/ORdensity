@@ -362,28 +362,23 @@ They denote the strong selection (FP=0) with S and the relaxed selection (FP < e
 106 Gene670   7.613718 10.0 82.1001257      -       -
 ```
 
-A plot with a representation of the potential genes based on OR (vertical axis), FP (horizontal axis) and dFP (size of the circle is inversely proportional to its value) can also be obtained. The plot is similar to Fig.3b in \[1\].
+A plot with a representation of the potential genes based on OR (vertical axis), FP (horizontal axis) and dFP (size of the circle is inversely proportional to its value) can also be obtained. Genes that fulfil the relaxed criterion are drawn with triangles. The resulting plot is similar to Fig.3b in \[1\].
 
 ```
-plotFPvsOR(myORdensity)
+plot(myORdensity)
 ```
 
-![plot1](/images/plotFPvsOR.png)
+![plot1](/images/plot.png)
 
 By default, the number of clusters computed by the ORdensity method is used. Other values for the number of clusters can be specified.
 
 ```
-plotFPvsOR(myORdensity, k = 5)
+plot(myORdensity, k = 5)
 ```
 
-![plot1](/images/plotFPvsOR5.png)
+![plot2](/images/plot5.png)
 
-It is also possible to see a graphic representation of the clustering projected onto the first two principal components
 
-```
-clusplotk(myORdensity)
-```
-![plot3](/images/clusplotk.png)
 
 The plot of k values against the silhouette measure is also provided.
 
@@ -394,11 +389,4 @@ silhouetteAnalysis(myORdensity)
 ![plot2](/images/silhouetteAnalysis.png)
 
 
-
-Other number of clusters can also be checked
-
-```
-clusplotk(myORdensity, k = 4)
-```
-![plot4](/images/clusplotk4.png)
 
