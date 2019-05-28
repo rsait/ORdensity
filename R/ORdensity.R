@@ -12,7 +12,6 @@
 #' \emph{BMC Bioinformatics}, 19:317
 #' @author Jose Maria Martinez-Otzeta, Itziar Irigoien, Concepcion Arenas
 #' @export silhouetteAnalysis
-#' @export compute.ORdensity
 #' @export findDEgenes
 #' @export preclusteredData
 #'
@@ -336,7 +335,6 @@ getOR <- function(distMatrix)
 #' @examples
 #' 
 #' @rdname compute.ORdensity
-#' @export
 setGeneric("compute.ORdensity", function(object, ...) standardGeneric("compute.ORdensity"))
 
 setMethod("compute.ORdensity",
@@ -593,7 +591,6 @@ setMethod("initialize", "ORdensity", function(.Object, Exp_cond_1, Exp_cond_2, l
 #' @examples
 #' 
 #' @rdname findbestKclustering
-#' @export
 setGeneric("findbestKclustering", function(object, ...) standardGeneric("findbestKclustering"))
 
 setMethod("findbestKclustering",
