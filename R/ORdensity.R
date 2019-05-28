@@ -294,25 +294,6 @@ setMethod("silhouetteAnalysis",
           }
 )
 
-
-#' @title clusplotk
-#' @param 
-#' @return 
-#' @examples
-#' 
-#' @rdname clusplotk
-#' @export
-setGeneric("clusplotk", function(object, ...) standardGeneric("clusplotk"))
-
-setMethod("clusplotk",
-  signature = "ORdensity",
-  definition = function(object, k = object@bestKclustering){
-    d <- distances::distances(scale(object@char))
-    aa <- cluster::pam(d[1:(dim(d)[2]), 1:(dim(d)[2])], k, diss = TRUE)
-    clusplot(aa, main = paste("Clustering with k = ", k))
-  }
-  )
-
 getQuantilesDifferencesWeighted <- function(positiveCases, negativeCases, scale, weights, probs){
   numGenes <- dim(positiveCases)[1]
   quantilesPositiveCases <- t(apply(positiveCases, 1, quantile, probs=probs))
