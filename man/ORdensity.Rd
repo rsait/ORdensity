@@ -10,8 +10,8 @@ ORdensity is a package for the automated discovery of differentially expressed g
 It makes use of the ORdensity method and the associated FP and dFP values to detect the
 most likely true positives.
 
-Object of class ORdensity includes all potential diffentially expressed genes
-given miroarray data measured in two experimental conditions.
+An object of class ORdensity includes all potential differentially expressed genes
+given microarray data measured in two experimental conditions.
 }
 \section{Slots}{
 
@@ -24,9 +24,9 @@ given miroarray data measured in two experimental conditions.
 rownames(Exp_cond_1) is inherited. If NULL,
 the genes are named ‘Gene1’, ..., ‘Genen' according to the order given in \code{Exp_cond_1}.}
 
-\item{\code{B}}{Numeric value indicating the number of bootstrap iteration. By default, \code{B}=100.}
+\item{\code{B}}{Numeric value indicating the number of bootstrap iterations. By default, \code{B}=100.}
 
-\item{\code{scale}}{Logical value to indicate whether the scaling of the difference of quatiles should be done.}
+\item{\code{scale}}{Logical value to indicate whether the scaling of the difference of quantiles should be done.}
 
 \item{\code{alpha}}{Numeric value to control the bootstrap threshold. By default 0.05.}
 
@@ -42,8 +42,7 @@ By default  \code{weights = c(1/4, 1/2, 1/4)}.}
 
 \item{\code{numclustoseek}}{Numeric value to set the number of maximum clusters to consider. By default \code{numclustoseek=10}.}
 
-\item{\code{out}}{List containing the potential DE genes and their characteristics.
-...}
+\item{\code{out}}{List containing the potential DE genes and their characteristics.}
 }}
 
 \examples{

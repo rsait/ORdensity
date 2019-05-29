@@ -1,8 +1,7 @@
-#'
 #' @title An S4 class for representing potential differentially expressed genes
 #'
-#' @description Object of class ORdensity includes all potential diffentially expressed genes
-#' given miroarray data measured in two experimental conditions.
+#' @description An object of class ORdensity includes all potential differentially expressed genes
+#' given microarray data measured in two experimental conditions.
 #'
 #' @name ORdensity
 #' @rdname ORdensity
@@ -20,8 +19,8 @@
 #' @slot labels  Vector of characters identifying the genes, by default
 #' rownames(Exp_cond_1) is inherited. If NULL,
 #' the genes are named ‘Gene1’, ..., ‘Genen' according to the order given in \code{Exp_cond_1}.
-#' @slot B Numeric value indicating the number of bootstrap iteration. By default, \code{B}=100.
-#' @slot scale Logical value to indicate whether the scaling of the difference of quatiles should be done.
+#' @slot B Numeric value indicating the number of bootstrap iterations. By default, \code{B}=100.
+#' @slot scale Logical value to indicate whether the scaling of the difference of quantiles should be done.
 #' @slot alpha Numeric value to control the bootstrap threshold. By default 0.05.
 #' @slot fold Numeric value, by default \code{fold}=10. It controls the number of partitions.
 #' @slot probs Vector of numerics. It sets the quantiles to be considered. By default
@@ -31,7 +30,7 @@
 #' @slot numneighbours Numeric value to set the number of nearest neighbours. By default \code{numneighbours=10}.
 #' @slot numclustoseek Numeric value to set the number of maximum clusters to consider. By default \code{numclustoseek=10}.
 #' @slot out List containing the potential DE genes and their characteristics.
-#' ...
+#' 
 #' @examples
 #' # To create an instance of a class ORdensity given data from 2 experimental conditions
 #' x <- simexpr[, 3:32]
@@ -76,6 +75,9 @@ ORdensity <- setClass(
 #' \item \code{CharacteristicsCluster}: Matrix with mean values and standard deviation of variables OR, FP and dFP for each cluster.
 #' \item \code{Genes}: Identification of the genes in the cluster.
 #' }
+#' @seealso \code{\link{preclusteredData}}, 
+#' \code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
+#' \code{\link{findDEgenes}}, \code{\link{ORdensity}}
 #' @examples
 #' # Read data from 2 experimental conditions
 #' x <- simexpr[, 3:32]
@@ -148,7 +150,9 @@ setMethod("summary.ORdensity",
 #' 
 #' @param object Object of class \code{\link{ORdensity}}
 #' @return \code{\link{data.frame}} with all potential DE genes
-#' 
+#' @seealso \code{\link{summary.ORdensity}}, 
+#' \code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
+#' \code{\link{findDEgenes}}, \code{\link{ORdensity}}
 #' @examples
 #' # Read data from 2 experimental conditions
 #' x <- simexpr[, 3:32]
@@ -185,8 +189,6 @@ setMethod("preclusteredData",
 )
 
 #' @title print
-#' @param 
-#' @return 
 #' @examples
 #' 
 #' @rdname print
@@ -216,6 +218,9 @@ setMethod("show",
 #' @return  Displays a plot of the average silhouette width along with the number of clusters in the partition. 
 #' If assigned to an object, it returns a vector of length \code{K} with the average
 #' silhouette values.
+#' @seealso \code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+#' \code{\link{silhouetteAnalysis}},
+#' \code{\link{findDEgenes}}, \code{\link{ORdensity}}
 #' @examples
 #' # Read data from 2 experimental conditions
 #' x <- simexpr[, 3:32]
@@ -260,7 +265,7 @@ setMethod("plot.ORdensity",
 #' Nevertheless, \code{silhouetteAnalysis} allows to check whether there is a clear best number for the partition
 #' or the  average silhouettes values are
 #' rather similar. 
-#' #' @references Rousseeuw, P. J. (1987). Silhouettes: a graphical aid to the interpretation and validation of cluster analysis. Journal of computational and applied mathematics, 20, 53-65.
+#' @references Rousseeuw, P. J. (1987). Silhouettes: a graphical aid to the interpretation and validation of cluster analysis. Journal of computational and applied mathematics, 20, 53-65.
 #' @return  Displays a plot of the average silhouette width along with the number of clusters in the partition. 
 #' If assigned to an object, it returns a vector of length \code{K} with the average
 #' silhouette values.
@@ -272,6 +277,9 @@ setMethod("plot.ORdensity",
 #' EXC.2 <- as.matrix(y)
 #' myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2)
 #' silhouetteAnalysis(myORdensity)
+#' @seealso \code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+#' \code{\link{plot.ORdensity}}, 
+#' \code{\link{findDEgenes}}, \code{\link{ORdensity}}
 #' @rdname silhouetteAnalysis
 #' @export
 setGeneric("silhouetteAnalysis", function(object, ...) standardGeneric("silhouetteAnalysis"))
@@ -329,18 +337,8 @@ getOR <- function(distMatrix)
   return(OR)
 }
 
-#' @title compute.ORdensity
-#' @param 
-#' @return 
-#' @examples
-#' 
-#' @rdname compute.ORdensity
-setGeneric("compute.ORdensity", function(object, ...) standardGeneric("compute.ORdensity"))
-
-setMethod("compute.ORdensity",
-	signature = "ORdensity",
-	definition =  function(object, B=100, scale=FALSE, alpha=0.05, fold=floor(B/10), probs=c(0.25, 0.5, 0.75), weights=c(1/4,1/2,1/4), numneighbours = 10, verbose=FALSE, 
-	                       parallel = FALSE, replicable = TRUE, seed = 0) {
+compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floor(B/10), probs=c(0.25, 0.5, 0.75), weights=c(1/4,1/2,1/4), numneighbours = 10, verbose=FALSE, 
+                       parallel = FALSE, replicable = TRUE, seed = 0) {
 	    a <- system.time ({
 	    bootstrap_time_estimated <- FALSE
 	      
@@ -521,7 +519,6 @@ setMethod("compute.ORdensity",
 
 		   object@out <- list("summary"=finalResult[finalOrdering, ], "ns"=numSuspicious, "prop"=c(percentageSuspiciousOverPositives, percentageBoostrapOverPositives , numneighbours))
 		}
-	)
 
 setValidity("ORdensity", function(object) {
   valid <- TRUE
@@ -585,17 +582,7 @@ setMethod("initialize", "ORdensity", function(.Object, Exp_cond_1, Exp_cond_2, l
   .Object
 })
 
-#' @title findbestKclustering
-#' @param 
-#' @return 
-#' @examples
-#' 
-#' @rdname findbestKclustering
-setGeneric("findbestKclustering", function(object, ...) standardGeneric("findbestKclustering"))
-
-setMethod("findbestKclustering",
-          signature = "ORdensity",
-          definition = function(object){
+findbestKclustering <- function(object){
             s <- rep(NA, object@numclustoseek)
             # len(object@char) could be less than 10
             for (k in 2:object@numclustoseek)
@@ -608,30 +595,32 @@ setMethod("findbestKclustering",
 	    object@bestKclustering <- best_k
             return (best_k)
           }
-)
 
 #' @title findDEgenes
 #' @description This function clusters the potential differentially expressed (DE) genes among them 
-#' so that the real DE genes can be distinguish from the not DE genes.
-#' @param object An object of `ORdensity' class
+#' so that the real DE genes can be distinguished from the not DE genes.
+#' @param object An object of `ORdensity` class
 #' @param numclusters By default \code{NULL}, it inherits from the \code{object}. Optionally,
 #' an integer number indicating number of clusters.
 #' @details Once the potential DE genes are identified, the real DE genes and the not real DE genes or
 #' false positives must be distinguished. Since the real DE genes must have high OR values along with
 #' low FP and dFP values, and on the contrary, the false DE genes must have low OR values but high FP and dFP values,
-#' a clustering of all the potential DE genes is carried out. The clustering is based on build-on variables OR, FP and dFP 
+#' a clustering of all the potential DE genes is carried out. The clustering is based on built-on variables OR, FP and dFP 
 #' (see class \code{\link{ORdensity}}) which are scaled. The clustering algorithm is   \code{\link{pam}} and by default
 #' the number of clusters in the partition is obtained by \code{\link{silhouette}}. With parameter \code{numclusters} the number
 #' of clusters in the partition can be customized.
 #' @return  A list with \eqn{k} lists where \eqn{k} is the best number of clusters found. 
 #' The clusters are ordered based on their importance according to the mean OR values of the clusters 
-#' (greater is the mean OR value of the cluster more important are the genes in the cluster).
+#' (the greater the mean OR value of the cluster the more important are the genes in the cluster).
 #' The first one is the most important, the last one the less important. Each list has elements:
 #' \itemize{
 #' \item \code{numberOfGenes}: Number of genes in the cluster.
 #' \item \code{CharacteristicsCluster}: Matrix with mean values and standard deviation of variables OR, FP and dFP for each cluster.
 #' \item \code{Genes}: Identification of the genes in the cluster.
 #' }
+#' @seealso \code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+#' \code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
+#' \code{\link{ORdensity}}
 #' @examples
 #' # Read data from 2 experimental conditions
 #' x <- simexpr[, 3:32]
