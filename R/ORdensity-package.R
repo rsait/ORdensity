@@ -6,8 +6,7 @@
 #'
 #' @seealso \code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
 #' \code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
-#' \code{\link{clusplotk}}, \code{\link{compute.ORdensity}}, 
-#' \code{\link{findbestK}}, \code{\link{findDEgenes}}, \code{\link{ORdensity}}
+#' \code{\link{findDEgenes}}, \code{\link{ORdensity}}
 #' @name ORdensity
 #' @aliases ORdensity-package
 #' @docType package

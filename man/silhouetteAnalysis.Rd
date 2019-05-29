@@ -27,8 +27,7 @@ false positives must be distinguished and it is carried out clustering  all the 
 the number of clusters in the partition is obtained by \code{\link{silhouette}}. 
 Nevertheless, \code{silhouetteAnalysis} allows to check whether there is a clear best number for the partition
 or the  average silhouettes values are
-rather similar. 
-#' @references Rousseeuw, P. J. (1987). Silhouettes: a graphical aid to the interpretation and validation of cluster analysis. Journal of computational and applied mathematics, 20, 53-65.
+rather similar.
 }
 \examples{
 # Read data from 2 experimental conditions
@@ -38,4 +37,12 @@ EXC.1 <- as.matrix(x)
 EXC.2 <- as.matrix(y)
 myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2)
 silhouetteAnalysis(myORdensity)
+}
+\references{
+Rousseeuw, P. J. (1987). Silhouettes: a graphical aid to the interpretation and validation of cluster analysis. Journal of computational and applied mathematics, 20, 53-65.
+}
+\seealso{
+\code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+\code{\link{plot.ORdensity}}, 
+\code{\link{findDEgenes}}, \code{\link{ORdensity}}
 }

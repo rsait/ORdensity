@@ -7,7 +7,7 @@
 findDEgenes(object, ...)
 }
 \arguments{
-\item{object}{An object of `ORdensity' class}
+\item{object}{An object of `ORdensity` class}
 
 \item{numclusters}{By default \code{NULL}, it inherits from the \code{object}. Optionally,
 an integer number indicating number of clusters.}
@@ -15,7 +15,7 @@ an integer number indicating number of clusters.}
 \value{
 A list with \eqn{k} lists where \eqn{k} is the best number of clusters found. 
 The clusters are ordered based on their importance according to the mean OR values of the clusters 
-(greater is the mean OR value of the cluster more important are the genes in the cluster).
+(the greater the mean OR value of the cluster the more important are the genes in the cluster).
 The first one is the most important, the last one the less important. Each list has elements:
 \itemize{
 \item \code{numberOfGenes}: Number of genes in the cluster.
@@ -25,13 +25,13 @@ The first one is the most important, the last one the less important. Each list 
 }
 \description{
 This function clusters the potential differentially expressed (DE) genes among them 
-so that the real DE genes can be distinguish from the not DE genes.
+so that the real DE genes can be distinguished from the not DE genes.
 }
 \details{
 Once the potential DE genes are identified, the real DE genes and the not real DE genes or
 false positives must be distinguished. Since the real DE genes must have high OR values along with
 low FP and dFP values, and on the contrary, the false DE genes must have low OR values but high FP and dFP values,
-a clustering of all the potential DE genes is carried out. The clustering is based on build-on variables OR, FP and dFP 
+a clustering of all the potential DE genes is carried out. The clustering is based on built-on variables OR, FP and dFP 
 (see class \code{\link{ORdensity}}) which are scaled. The clustering algorithm is   \code{\link{pam}} and by default
 the number of clusters in the partition is obtained by \code{\link{silhouette}}. With parameter \code{numclusters} the number
 of clusters in the partition can be customized.
@@ -46,4 +46,9 @@ myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2)
 out <- findDEgenes(myORdensity)
 # For instance, characteristics of cluster1, likely composed of true DE genes 
 out[[1]]
+}
+\seealso{
+\code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+\code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
+\code{\link{ORdensity}}
 }

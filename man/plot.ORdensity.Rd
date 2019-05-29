@@ -39,3 +39,8 @@ EXC.2 <- as.matrix(y)
 myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2)
 silhouetteAnalysis(myORdensity)
 }
+\seealso{
+\code{\link{summary.ORdensity}}, \code{\link{preclusteredData}}, 
+\code{\link{silhouetteAnalysis}},
+\code{\link{findDEgenes}}, \code{\link{ORdensity}}
+}

@@ -47,3 +47,8 @@ out <- findDEgenes(myORdensity)
 # For instance, general characteristics of cluster1, likely composed of true DE genes 
 out$Cluster1
 }
+\seealso{
+\code{\link{preclusteredData}}, 
+\code{\link{plot.ORdensity}}, \code{\link{silhouetteAnalysis}},
+\code{\link{findDEgenes}}, \code{\link{ORdensity}}
+}
