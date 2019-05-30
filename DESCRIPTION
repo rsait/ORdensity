@@ -1,8 +1,8 @@
 Package: ORdensity
 Type: Package
-Title: Differentially Expressed Genes Discovery using ORdensity Method
+Title: ORdensity: User-friendly R package to identify Differentially Expressed genes
 Version: 0.1.0
-Author: Concepción Arenas, Itziar Irigoien, José María Martínez Otzeta
+Author: José María Martínez Otzeta, Concepción Arenas, Basilio Sierra, Itziar Irigoien  
 Maintainer: José María Martínez Otzeta <josemaria.martinezo@ehu.eus>
 Description: ORdensity is a package for the automated discovery of differentially expressed genes.
     It makes use of the ORdensity method and the associated FP and dFP values to detect the
