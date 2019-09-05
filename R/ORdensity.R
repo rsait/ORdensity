@@ -331,7 +331,8 @@ getBootstrapSample <- function(allCases, numPositiveCases)
 
 getOR <- function(distMatrix)
 {	
-  vgR <- Rfast::med(distMatrix^2)/2
+  # vgR <- Rfast::med(distMatrix^2)/2
+  vgR <- (Rfast::med(distMatrix)^2)/2
   I <- apply(distMatrix, 1,  IindexRobust, vg=vgR)
   OR <- 1/I
   return(OR)
@@ -371,7 +372,7 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 
 		  if (verbose) {print('Time after third chunk'); print(c)}
 
-		  d <- system.time ({
+		  d2time <- system.time ({
 		  allCases <- cbind(positiveCases, negativeCases)
 		  ORbootstrap <- matrix(0, nrow=numGenes, ncol=B)
 		  quantilesDifferencesWeighted.null <- array(0, dim=c(numGenes, numProbs, B))
@@ -439,7 +440,7 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 		  }
 		}
    })
-		  if (verbose) {print('Time after fourth chunk'); print(d)}
+		  if (verbose) {print('Time after fourth chunk'); print(d2time)}
 
 		# OR values for original data
 		  e <- system.time ({
