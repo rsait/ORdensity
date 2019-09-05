@@ -348,7 +348,7 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 		  numGenes <- dim(positiveCases)[1]
 		  
 		  cat("An object of size", format(object.size(1.0) * numGenes * numGenes / 7, unit="auto"), "is going to be created in memory. ")
-		  cat("If the parallel option is enabled, as many objects of that size as the number of processors in your computer, ")
+		  cat("If the parallel option is enabled, as many objects of that size as the number of processes chosen ")
 		  cat("are going to be created at the same time. Please consider that when running this code.\n")
 		  
 		  numPositiveCases <- dim(positiveCases)[2]
