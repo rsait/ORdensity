@@ -53,6 +53,11 @@ By default, no parallelizing is enabled. To enable it, just run instead
 ```
 myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2, parallel = TRUE)
 ```
+The number of processes launched is equal to the number of processors detected in the machine. That number can be changed with the `nprocs` parameter
+
+```
+myORdensity <- new("ORdensity", Exp_cond_1 = EXC.1, Exp_cond_2 = EXC.2, parallel = TRUE. nprocs = 3)
+```
 It is also possible to enable or disable replicability, and to pass the seed to the pseudorandom number generator. The default values are 
 
 ```
