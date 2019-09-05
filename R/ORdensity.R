@@ -45,12 +45,12 @@ ORdensity <- setClass(
 	          B="numeric", scale="logical", alpha="numeric", 
 	          fold="numeric", probs="numeric", weights="numeric", numneighbours="numeric", numclustoseek="numeric",
 	          out="list", OR="numeric", FP="numeric", dFP="numeric", char="data.frame", bestKclustering = "numeric", 
-	          verbose="logical", parallel="logical", replicable="logical", seed="numeric"),
+	          verbose="logical", parallel="logical", nprocs="numeric", replicable="logical", seed="numeric"),
 	prototype = list(Exp_cond_1=matrix(), Exp_cond_2=matrix(), labels=character(), 
 	                 B=numeric(), scale=logical(), alpha=numeric(), 
 	                 fold=numeric(), probs=numeric(), weights=numeric(), numneighbours=numeric(), numclustoseek=numeric(), 
 	                 out=list(), OR=numeric(), FP=numeric(), dFP=numeric(), char=data.frame(), bestKclustering = numeric(), 
-	                 verbose=logical(), parallel=logical(), replicable=logical(), seed=numeric())
+	                 verbose=logical(), parallel=logical(), nprocs=numeric(), replicable=logical(), seed=numeric())
 )
 
 #' @title summary.ORdensity
@@ -331,14 +331,15 @@ getBootstrapSample <- function(allCases, numPositiveCases)
 
 getOR <- function(distMatrix)
 {	
-  vgR <- Rfast::med(distMatrix^2)/2
+  # vgR <- Rfast::med(distMatrix^2)/2
+  vgR <- (Rfast::med(distMatrix)^2)/2
   I <- apply(distMatrix, 1,  IindexRobust, vg=vgR)
   OR <- 1/I
   return(OR)
 }
 
 compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floor(B/10), probs=c(0.25, 0.5, 0.75), weights=c(1/4,1/2,1/4), numneighbours = 10, verbose=FALSE, 
-                       parallel = FALSE, replicable = TRUE, seed = 0) {
+                       parallel = FALSE, nprocs = 0, replicable = TRUE, seed = 0) {
 	    a <- system.time ({
 	    bootstrap_time_estimated <- FALSE
 	      
@@ -371,7 +372,7 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 
 		  if (verbose) {print('Time after third chunk'); print(c)}
 
-		  d <- system.time ({
+		  d2time <- system.time ({
 		  allCases <- cbind(positiveCases, negativeCases)
 		  ORbootstrap <- matrix(0, nrow=numGenes, ncol=B)
 		  quantilesDifferencesWeighted.null <- array(0, dim=c(numGenes, numProbs, B))
@@ -384,7 +385,15 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 		      set.seed(seed)
 		    }
 	    nproc <- parallel::detectCores()
-		  cl <- parallel::makeForkCluster(nproc)
+      cl <- NULL
+	    if (as.integer(nprocs) > 0)
+	    {
+	      cl <- parallel::makeForkCluster(as.integer(nprocs))
+	    }
+      else 
+      {
+        cl <- parallel::makeForkCluster(nproc)
+      }
 		  doParallel::registerDoParallel(cl)
       res_par <- foreach(b = 1:B, .combine = 'c', .options.RNG=seed) %dorng% {
         bootstrapSample <- getBootstrapSample(allCases, numPositiveCases)
@@ -431,7 +440,7 @@ compute.ORdensity <-  function(object, B=100, scale=FALSE, alpha=0.05, fold=floo
 		  }
 		}
    })
-		  if (verbose) {print('Time after fourth chunk'); print(d)}
+		  if (verbose) {print('Time after fourth chunk'); print(d2time)}
 
 		# OR values for original data
 		  e <- system.time ({
@@ -547,7 +556,7 @@ setMethod("initialize", "ORdensity", function(.Object, Exp_cond_1, Exp_cond_2, l
                                               fold=floor(B/10), probs=c(0.25, 0.5, 0.75), weights=c(1/4,1/2,1/4), numneighbours = 10, 
                                               numclustoseek = 10,
                                               out, OR, FP, dFP, char, bestKclustering, verbose = FALSE, 
-                                              parallel = FALSE, replicable = TRUE, seed = 0) {
+                                              parallel = FALSE, nprocs = 0, replicable = TRUE, seed = 0) {
   .Object@Exp_cond_1 <- Exp_cond_1
   .Object@Exp_cond_2 <- Exp_cond_2
   if (is.null(labels))
@@ -568,11 +577,12 @@ setMethod("initialize", "ORdensity", function(.Object, Exp_cond_1, Exp_cond_2, l
   .Object@numclustoseek <- numclustoseek
   .Object@verbose <- verbose
   .Object@parallel <- parallel
+  .Object@nprocs <- nprocs
   .Object@replicable <- replicable
   .Object@seed <- seed
   .Object@out <- compute.ORdensity(.Object, B = .Object@B, scale = .Object@scale, alpha = .Object@alpha, fold = .Object@fold, 
                                    probs = .Object@probs, weights = .Object@weights, numneighbours = .Object@numneighbours,
-                                   verbose = .Object@verbose, parallel = .Object@parallel, replicable = .Object@replicable, 
+                                   verbose = .Object@verbose, parallel = .Object@parallel, nprocs = .Object@nprocs, replicable = .Object@replicable, 
                                    seed = .Object@seed)
   .Object@OR <- .Object@out$summary[, "OR"]
   .Object@FP <- .Object@out$summary[, "FP"]
